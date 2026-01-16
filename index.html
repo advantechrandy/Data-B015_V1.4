@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fan Stall說明</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;700&family=Orbitron:wght@400;700&display=swap');
+
+        body {
+            background-color: #121212;
+            color: #d1d1d1;
+            font-family: 'Noto Sans TC', sans-serif;
+            background-image: 
+                linear-gradient(rgba(0, 255, 204, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 204, 0.03) 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
+
+        .industrial-panel {
+            border: 1px solid #333;
+            background: rgba(30, 30, 30, 0.95);
+            backdrop-filter: blur(10px);
+            position: relative;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+
+        .warning-stripe {
+            height: 8px;
+            background: repeating-linear-gradient(
+                -45deg,
+                #facc15,
+                #facc15 10px,
+                #1e1e1e 10px,
+                #1e1e1e 20px
+            );
+        }
+
+        .header-font {
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 1px;
+            color: #facc15;
+        }
+
+        h2 {
+            font-family: 'Orbitron', 'Noto Sans TC', sans-serif;
+            font-size: 1.25rem;
+            color: #ffffff;
+            border-bottom: 1px solid #444;
+            padding-bottom: 0.5rem;
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+        }
+
+        h2::before {
+            content: "●";
+            color: #facc15;
+            margin-right: 10px;
+            font-size: 0.8rem;
+        }
+
+        .info-card {
+            background: #252525;
+            border-left: 4px solid #facc15;
+            padding: 1.25rem;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .info-card:hover {
+            background: #2a2a2a;
+            border-left-color: #ffffff;
+        }
+
+        .term {
+            color: #facc15;
+            font-weight: bold;
+        }
+
+        ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        li {
+            margin-bottom: 0.8rem;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        li::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #facc15;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            background: #440000;
+            color: #ff5555;
+            border: 1px solid #ff5555;
+            font-size: 0.75rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        /* 隱藏捲軸 */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #121212;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="p-6 md:p-16">
+
+    <div class="max-w-4xl mx-auto industrial-panel overflow-hidden">
+        <div class="warning-stripe"></div>
+        
+        <div class="p-8 md:p-12">
+            <header class="mb-10">
+                <h1 class="header-font text-3xl md:text-4xl font-bold">FAN STALL說明 V1.4</h1>
+                <p class="text-gray-500 mt-2">系統診斷：氣流分離與紊流效應分析報告</p>
+            </header>
+
+            <section>
+                <p class="text-lg leading-relaxed text-gray-300">
+                    <span class="term">風扇失速（Fan Stall）</span> 是指空氣流經葉片時，氣流與葉片表面發生分離（Separation），進而產生巨大的負壓渦流，導致風壓與風量急遽下降的物理現象。
+                </p>
+
+                <h2>01. 物理機制：氣流的分離</h2>
+                <div class="info-card">
+                    <p class="mb-4 text-gray-400 font-light">當氣流無法緊貼葉片曲面時，會在背面形成混亂的渦流區：</p>
+                    <ul>
+                        <li><span class="text-white font-bold">攻角（Angle of Attack）過大：</span> 氣流進入角度超出了葉片的物理設計極限。</li>
+                        <li><span class="text-white font-bold">背壓（Back Pressure）過高：</span> 後方阻力（如高密度冷排）導致空氣無法順利排出，形成逆流壓力。</li>
+                    </ul>
+                </div>
+
+                <h2>02. 失速帶來的負面影響</h2>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div class="p-4 border border-gray-700">
+                        <h3 class="text-facc15 font-bold mb-2">效能衰退</h3>
+                        <p class="text-sm text-gray-400">RPM 雖然居高不下，但有效熱交換氣流幾乎為零。</p>
+                    </div>
+                    <div class="p-4 border border-gray-700">
+                        <h3 class="text-facc15 font-bold mb-2">聲學異常</h3>
+                        <p class="text-sm text-gray-400">渦流引發低頻轟鳴（Buffeting）與不穩定的高頻風切聲。</p>
+                    </div>
+                    <div class="p-4 border border-gray-700">
+                        <h3 class="text-facc15 font-bold mb-2">結構受損</h3>
+                        <p class="text-sm text-gray-400">不均勻的反作用力會造成葉片微震，縮短軸承壽命。</p>
+                    </div>
+                    <div class="p-4 border border-gray-700">
+                        <h3 class="text-facc15 font-bold mb-2">熱堆積</h3>
+                        <p class="text-sm text-gray-400">風扇中心區域出現氣流死區，熱量無法有效帶走。</p>
+                    </div>
+                </div>
+
+                <h2>03. PC 散熱實際案例</h2>
+                <div class="info-card">
+                    <ul>
+                        <li><span class="text-white font-bold">錯誤匹配：</span> 將風量扇（Airflow Fan）強行安裝於厚重水冷排上。</li>
+                        <li><span class="text-white font-bold">進氣阻塞：</span> 密不透風的防塵網引發進氣端負壓。</li>
+                    </ul>
+                </div>
+
+                <h2>04. 預防與優化策略</h2>
+                <div class="info-card">
+                    <ul>
+                        <li>選用<span class="text-white font-bold">高靜壓風扇（Static Pressure Fans）</span>。</li>
+                        <li>優化機殼內部的壓力平衡（正壓/負壓平衡）。</li>
+                        <li>定期清潔濾網，維持穩定的進氣攻角。</li>
+                    </ul>
+                </div>
+            </section>
+
+            <footer class="mt-16 pt-6 border-t border-gray-800 text-xs text-gray-600 flex justify-between uppercase tracking-widest">
+                <span>Created by Randy Chen @2026</span>
+            </footer>
+        </div>
+    </div>
+
+    <script>
+        // 禁用右鍵功能
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+        }, false);
+
+        // 禁止開發者工具快捷鍵
+        document.onkeydown = function(e) {
+            // F12
+            if (e.keyCode == 123) return false;
+            // Ctrl+Shift+I
+            if (e.ctrlKey && e.shiftKey && e.keyCode == 73) return false;
+            // Ctrl+Shift+J
+            if (e.ctrlKey && e.shiftKey && e.keyCode == 74) return false;
+            // Ctrl+U
+            if (e.ctrlKey && e.keyCode == 85) return false;
+        };
+    </script>
+</body>
+</html>
